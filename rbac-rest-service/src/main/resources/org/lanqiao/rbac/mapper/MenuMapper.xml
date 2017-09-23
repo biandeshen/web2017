@@ -21,6 +21,7 @@
     where pid=#{pid}
   </select>
 
+<<<<<<< HEAD
     <select id="selectByAid" resultMap="BaseResultMap" parameterType="int">
         SELECT
         account.id AS `account_id`,
@@ -45,4 +46,12 @@
 --         role_id,
 --         menu_id;
     </select>
+=======
+  <select id="">
+    select id,title,url,pid
+    from rbac_menu
+    where is_button=0,state=1
+
+  </select>
+>>>>>>> 045af28da08f01614b5ec2da4c334ad8fec5815b
 </mapper>

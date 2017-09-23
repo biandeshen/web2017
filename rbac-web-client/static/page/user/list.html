@@ -1,12 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>用户列表</title>
     <link rel="stylesheet" href="../../css/layui.css" media="all">
     <script src="../../layui.js"></script>
     <script src="../../js/jquery-3.2.1.min.js"></script>
     <script src="../../js/OperaData.js"></script>
+=======
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>RBAC</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <!--<link rel="stylesheet" href="../../css/layui.css" media="all">-->
+>>>>>>> 045af28da08f01614b5ec2da4c334ad8fec5815b
 </head>
 <script>
     var info;
@@ -14,6 +28,7 @@
 </script>
 <body>
 
+<<<<<<< HEAD
 <div class="layui-btn-group demoTable">
     <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
     <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
@@ -48,10 +63,38 @@
                     {field: 'gender', width: 80, title: '性别', edit: 'text'},
                     {fixed: 'right', width: 160, align: 'center', toolbar: '#barDemo', title: '操作'}
 
+=======
+<div style="padding: 15px;">
+    <table id="userTable"/>
+</div>
+
+
+<!--<script src="../../layui.js" charset="utf-8"></script>-->
+
+<!--<script src="../../js/sys.js"></script>-->
+
+<script type="text/javascript">
+
+    layui.use(['table', 'form', 'jquery'], function (table, form, $) {
+        /* 初始化表格 */
+        var userTable = table.render(
+            {
+                elem: '#userTable',  // 原始的table元素
+                //height:500,
+                url: sys.apiBaseUrl + '/rbac/user/profile', // 异步数据的地址
+//                      url:'./userData.json', // 异步数据的地址
+                page: true,  // 是否分页
+                id: 'userTable',
+                cols: [[{field: 'id', width: 80, sort: true, title: 'ID'},
+                    {field: 'gender', width: 80, title: '性别'},
+                    {field: 'nickName', width: 80, title: '昵称'},
+                    {field: 'realName', width: 100, title: '真实姓名'}
+>>>>>>> 045af28da08f01614b5ec2da4c334ad8fec5815b
                 ]]
             });
     });
 </script>
+<<<<<<< HEAD
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
@@ -179,6 +222,8 @@
                 });
             }
         };
+=======
+>>>>>>> 045af28da08f01614b5ec2da4c334ad8fec5815b
 
         $('.demoTable .layui-btn').on('click', function () {
             var type = $(this).data('type');
@@ -187,6 +232,7 @@
     });
 </script>
 </body>
+<<<<<<< HEAD
 <!--<div class="layui-layer layui-layer-iframe layui-layer-molv layer-anim-01" id="layui-layer3" type="iframe" times="3"
      showtime="0" contype="string" style="z-index: 19891017; width: 550px; height: 265px; top: 86.5px; left: 129.5px;">
     <div class="layui-layer-title" style="cursor: move;"><i class="larry-icon larry-bianji3"></i>新增用户</div>
@@ -198,3 +244,6 @@
     <span class="layui-layer-setwin"><a class="layui-layer-ico layui-layer-close layui-layer-close1"
                                         href="javascript:;"></a></span></div>-->
 </html>
+=======
+</html>
+>>>>>>> 045af28da08f01614b5ec2da4c334ad8fec5815b

@@ -46,6 +46,9 @@ public class AccountAPI {
 
   @PutMapping
   public Result update(Account account) {
+    if(account.getPassword()!=null){
+      account.setPassword(MD5Util.md5(account.getPassword(),SysConst.SALT));
+    }
     accountService.update(account);
     return ResultGenerator.genSuccessResult();
   }
@@ -88,7 +91,7 @@ public class AccountAPI {
     final String md5Password = MD5Util.md5(password, SysConst.SALT);
     AuthenticationToken token = new UsernamePasswordToken(account.getAccount(), md5Password);
     Subject currentSubject = SecurityUtils.getSubject();
-    currentSubject.login(token);
+    currentSubject.login(token);// 这句话触发框架去访问Realm的doGetAuthenticationInfo
     String serverToken = UUID.randomUUID().toString().replaceAll("-", "");
     return serverToken;
   }
