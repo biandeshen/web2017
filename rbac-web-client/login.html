@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="static/js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="static/css/layui.css">
+    <script src="static/js/OperaData.js"></script>
+    <title>验证登录</title>
+</head>
+<body>
+<form class="layui-form" id="loginform">
+<div class="layui-form-item">
+    <label class="layui-form-label">用户名：</label>
+    <div class="layui-input-inline">
+        <input name="account" class="layui-input" type="text" placeholder="请输入" autocomplete="off" lay-verify="required">
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">密码： </label>
+    <div class="layui-input-inline">
+        <input name="password" class="layui-input" type="password" placeholder="请输入密码" autocomplete="off">
+    </div>
+    <div class="layui-form-mid layui-word-aux">请务必填写用户名</div>
+</div>
+<div class="layui-form-item">
+    <div class="layui-input-block">
+        <button class="layui-btn" lay-filter="demo1" lay-submit="" onclick="sendform()">立即提交</button>
+        <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+    </div>
+</div>
+</form>
+
+<script type="text/javascript" >
+/*    layui.use(['form'], function(){
+        var form = layui.form;
+
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 5){
+                    return '标题至少得5个字符啊';
+                }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+    });*/
+
+
+    function sendform() {
+        $.ajax({
+            cache: true,
+            type: "post",
+            dataType: "json",
+            url: "http://localhost:8080/rbac-rest-service/rbac/account/login",
+            data: $('#loginform').serialize(),    // 你的formid
+//            async: false,
+            error: function (request) {
+                alert("Connection error");
+            },
+            success: function (data) {
+                if(data.code == 200){
+//                    self.location= "./static/page/Main.html";
+                    top.location.href = "static/page/main_menu.html";
+//                    alert(data.code + data.message);
+                }else {
+                    alert(data.code + data.message);
+                }
+
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>

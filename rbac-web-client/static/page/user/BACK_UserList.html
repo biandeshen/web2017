@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>用户列表</title>
+    <link rel="stylesheet" href="../../css/layui.css" media="all">
+    <script src="../../layui.js"></script>
+</head>
+<body>
+
+<div class="layui-btn-group demoTable">
+    <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
+    <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
+    <button class="layui-btn" data-type="isAll">验证是否全选</button>
+</div>
+
+<table id="userTable" class="layui-table" lay-data="{height:332, page:true, id:'idTest'}" lay-filter="demo" >
+</table>
+<script type="text/javascript">
+    layui.use([ 'table','form','jquery' ], function(table,form,$) {
+        /* 初始化表格 */
+//			/* 高度自适应 */
+//            layui.use('table', function(){
+//                var table = layui.table;
+//
+//
+//            });
+        var userTable = table.render(
+            {
+                elem: '#userTable',  // 原始的table元素
+//                      height:500,
+                //url:'http://localhost:8080/rbac-rest-service/rbac/user/profile', // 异步数据的地址
+                url:'./userData.json', // 异步数据的地址
+                page:true,  // 是否分页
+                id:'idTest',
+                cols:[[{checkbox:true, fixed: true},
+                    {field:'id', width:80, sort: true,title:'ID',fixed:true},
+                    {field:'gender', width:80,title:'性别'},
+                    {field:'nickName', width:80,title:'昵称'},
+                    {field:'realName', width:80,title:'真实姓名'},
+                    {fixed: 'right', width:160, align:'center', toolbar: '#barDemo',title:'操作'},
+//						   {toolbar: '#barDemo'}
+                ]]
+            });
+    });
+</script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+</script>
+
+<script>
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
+        var laydate = layui.laydate //日期
+            ,laypage = layui.laypage //分页
+            ,layer = layui.layer //弹层
+            ,table = layui.table //表格
+            ,carousel = layui.carousel //轮播
+            ,upload = layui.upload //上传
+            ,element = layui.element; //元素操作
+
+
+        //监听Tab切换
+        element.on('tab', function(data){
+            layer.msg('切换了：'+ this.innerHTML);
+            console.log(data);
+        });
+        //监听工具条
+        table.on('tool', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+            if(layEvent === 'detail'){
+                layer.msg('查看操作');
+                layer.alert('当前行信息：<br>'+ JSON.stringify(data))
+            } else if(layEvent === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            } else if(layEvent === 'edit'){
+                layer.msg('编辑操作');
+                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+            }
+        });
+        //分页
+        laypage.render({
+            elem: 'pageDemo' //分页容器的id
+            ,count: 100 //总页数
+            ,skin: '#1E9FFF' //自定义选中色值
+            //,skip: true //开启跳页
+            ,jump: function(obj, first){
+                if(!first){
+                    layer.msg('第'+ obj.curr +'页');
+                }
+            }
+        });
+    });
+
+</script>
+
+
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        //监听表格复选框选择
+        table.on('checkbox(demo)', function(obj){
+            console.log(obj)
+        });
+
+        var $ = layui.$, active = {
+            getCheckData: function(){ //获取选中数据
+                var checkStatus = table.checkStatus('idTest')
+                    ,data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            }
+            ,getCheckLength: function(){ //获取选中数目
+                var checkStatus = table.checkStatus('idTest')
+                    ,data = checkStatus.data;
+                layer.msg('选中了：'+ data.length + ' 个');
+            }
+            ,isAll: function(){ //验证是否全选
+                var checkStatus = table.checkStatus('idTest');
+                layer.msg(checkStatus.isAll ? '全选': '未全选')
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+</body>
+
+</html>

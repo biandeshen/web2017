@@ -20,4 +20,29 @@
     select * from rbac_menu
     where pid=#{pid}
   </select>
+
+    <select id="selectByAid" resultMap="BaseResultMap" parameterType="int">
+        SELECT
+        account.id AS `account_id`,
+        account.account AS `account_account`,
+        userprofile.id AS `user_id`,
+        userprofile.nick_name AS `user_nickname`,
+        role.id AS `role_id`,
+        role.`name` AS `role_name`,
+        menu.id AS `id`,
+        menu.title AS `title`,
+        menu.pid AS `pid`
+        FROM
+        rbac_user_profile AS `userprofile`
+        LEFT JOIN rbac_user_role AS userRole ON userprofile.id = userRole.user_id
+        LEFT JOIN rbac_role AS role ON role.id = userRole.role_id
+        LEFT JOIN rbac_role_menu AS roleMenu ON role.id = roleMenu.role_id
+        LEFT JOIN rbac_menu AS menu ON roleMenu.id = menu.id
+        LEFT JOIN rbac_account AS account ON account.user_profile_id = userprofile.id
+        WHERE
+        account.id = #{aid}
+--         GROUP BY
+--         role_id,
+--         menu_id;
+    </select>
 </mapper>

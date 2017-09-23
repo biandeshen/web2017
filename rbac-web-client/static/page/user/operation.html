@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>用户列表</title>
+    <link rel="stylesheet" href="../../css/layui.css" media="all">
+    <script src="../../layui.js"></script>
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    /**
+     * 操作数据
+     * @param data 传入数据
+     * @param url   传入路径
+     * @param type  传入method类型
+     * @constructor
+     */
+    function OperaDate(data,url,type) {
+//        layer.close(index);
+//        obj.update(); //更新对应行（tr）的DOM结构
+        //向服务器发送编辑命令
+        //转换性别
+//        if (obj.data.gender == "男") {
+//            obj.data.gender = true;
+//        } else {
+//            obj.data.gender = false;
+//        }
+        var info = $.extend(data,{_method:type});
+        $.ajax({
+            url:url,
+            type:type,
+            data: info,
+            timeout: 20000,
+            success: function (result) {
+                alert(result.code + result.message);
+            },
+            error: function (result) {
+                alert(result.code + result.message);
+            }
+        });
+    }
+</script>
+</body>
+</html>
+//                layer.alert('编辑行：<br>' + JSON.stringify(info))
+//                    var info = $.extend(obj.data,{_method:'put'});
+//                    $.putJSON =function putJSON(url,data,callback) {
+
+
+//                    };
+//                    var info = $.extend(obj.data,{_method:'put'});
+//                    $.post("http://localhost:8080/rbac-rest-service/rbac/user/profile",info,function (obj) {
+//                        layer.msg("更新成功！");
+//                        }, "json");
+
+
+
+//        $.putJSON = function (url,data,callback) {
+//            $.ajax({
+//                url:url,
+//                type:"put",
+//                contentType:"application/json",
+//                dataType: "json",
+//                data:data,
+//                timeout: 20000,
+//                success:function (result) {
+//                    alert(result.code + result.message);
+//                    callback(result.message);
+//                }
+//            });
+
+
+//                    $.putJSON =function putJSON(url,data,callback) {
+//                        $.ajax({
+//                            url:"http://localhost:8080/rbac-rest-service/rbac/user/profile",
+//                            type:"put",
+////                            contentType:"application/json",
+////                            dataType: "json",
+//                            data:info,
+////                            obj.data+{_method:'put'},
+//                            timeout: 20000,
+//                            success:function (result) {
+//                                alert(result.code + result.message);
+////                                callback(result.message);
+//                            }//        };
+
+/**删除**/
+
+//                    $.ajax({
+//                        url: "http://localhost:8080/rbac-rest-service/rbac/user/profile/" + info.id,
+//                        type: "delete",
+//                        dataType: "json",
+//                        data: {_method: "delete"},
+//                        success: function (result) {
+//                            alert(result.code + result.message);
+//                        }
+//                    });

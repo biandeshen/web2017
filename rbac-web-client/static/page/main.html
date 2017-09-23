@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RBAC-权限管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../css/layui.css">
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../layer.js"></script>
+    <script src="../layui.js"></script>
+    <script src="../js/OperaData.js"></script>
+
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">RBAC--权限管理</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left" id="menu_bar">
+            <!--<li class="layui-nav-item"><a href="javascript:load_list()">后台首页</a></li>-->
+            <!--<button id="user_list" onclick="javascript:load_list()">用户信息管理</button>-->
+            <!--<li class="layui-nav-item"><a href="">角色管理</a></li>-->
+            <!--<li class="layui-nav-item"><a href="">权限管理</a></li>-->
+            <!--<li class="layui-nav-item"><a href="">资源管理</a></li>-->
+            <!--<li class="layui-nav-item">-->
+            <!--<a href="javascript:;">其它系统</a>-->
+            <!--<dl class="layui-nav-child">-->
+            <!--<dd><a href="">邮件管理</a></dd>-->
+            <!--<dd><a href="">消息管理</a></dd>-->
+            <!--<dd><a href="">授权管理</a></dd>-->
+            <!--</dl>-->
+            <!--</li>-->
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    admin
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">注销</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test" id="menu_item">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">系统配置</a>
+                    <dd><a href="javascript:;">参数设置</a></dd>
+                    <dd><a href="javascript:;">文件存储</a></dd>
+                    <dd><a href="javascript:;">其它</a></dd>
+                    <!--<dd><a href="">超链接</a></dd>-->
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">系统权限</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">角色设置</a></dd>
+                        <dd><a href="javascript:;">节点管理</a></dd>
+                        <dd><a href="javascript:;">菜单管理</a></dd>
+                        <dd><a href="javascript:;">系统用户</a></dd>
+                        <dd><a href="javascript:;">操作日志</a></dd>
+                    </dl>
+                </li>
+                <!--<li class="layui-nav-item"><a href="">云市场</a></li>-->
+                <!--<li class="layui-nav-item"><a href="">发布商品</a></li>-->
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body" id="bodyContent">
+        <!-- 内容主体区域 -->
+        <!--<div style="padding: 15px;">-->
+        <!--</div>-->
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © RBAC--权限管理 alpha-0.0.1
+    </div>
+</div>
+</body>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var element = layui.element;
+
+    });
+
+
+    /*    $(document).ready(function () {
+            $("#user_list").click(function () {
+    /!*            $.ajax({
+                    cache: true,
+                    type: "get",
+                    dataType: "html",
+                    url: "page/user/list.html",
+                    success: function (data) {
+                        var result = $(data).find(userTable);
+                        $("bodyContent").html(result);
+                    }
+                });*!/
+                    $('#bodyContent').load('user/list.html');
+            });
+        });*/
+
+
+    /**
+     * 1，获取所有菜单,先获取到顶级，再获取二级
+     *
+     *
+     * 2，根据菜单级别分别添加到对应的位置，如menu_bar导航栏，优先级为1,
+     *      1，动态生成每个li标签，监听当前的列表，
+     *
+     * 3，根据导航栏当前选项选择二级菜单，默认显示导航栏为1的，其它时间以选择为标准
+     *      1，动态生成每个li标签，监听当前的列表，
+     *      2，得到所选列的id，通过function替换其中<a href="javascript:load_list()">的值
+     *      、、或者通过向load中添加参数，选取不同的方法，根据参数运行不同界面
+     */
+//初始加载
+    $(document).ready(function () {
+        //加载导航和默认二级菜单
+        var data1 = "0";
+        var data = "";
+        myData(data, menuProURL_R + data1, GET_METHOD);
+//        layer.alert(ResultInfo);
+        var con = "";
+//        layer.alert(ResultInfo);
+        //将返回的data对象字符串(ResultInfo)转换为对象
+        var menu_info = JSON.parse(ResultInfo);
+        $.each(menu_info, function (index, item) {
+            con += "<li class='layui-nav-item'>" + "<a href=javascript:select_Item(" + item.id + ")>" + item.title + "</a></li>"
+        });
+//        console.log(con);    //可以在控制台打印一下看看，这是拼起来的标签和数据
+        $("#menu_bar").html(con); //把内容入到这个div中即完成
+
+
+        //默认的二级菜单
+        var data1 = "1";
+        var data = "";
+        myData(data, menuProURL_R + data1, GET_METHOD);
+        var con = "";
+//        layer.alert(ResultInfo);
+        //将返回的data对象字符串(ResultInfo)转换为对象
+        var menu_info = JSON.parse(ResultInfo);
+        $.each(menu_info, function (index, item) {
+            con += "<li class='layui-nav-item'>" + "<a href=javascript:load_list(" + item.id + ")>" + item.title + "</a></li>"
+        });
+        console.log(con);    //可以在控制台打印一下看看，这是拼起来的标签和数据
+        $("#menu_item").html(con); //把内容入到这个div中即完成
+    });
+
+    //    con += "<li class='layui-nav-item'>"+"<a href=javascript:load_list('"+id+")>"+ResultInfo.title+"</a></li>"
+    //导航选择二级菜单
+    function select_Item(value) {
+        var data1 = value.toString();
+        var data = "";
+        myData(data, menuProURL_R + data1, GET_METHOD);
+        var con = "";
+//        layer.alert(ResultInfo);
+        //将返回的data对象字符串(ResultInfo)转换为对象
+        var menu_info = JSON.parse(ResultInfo);
+        $.each(menu_info, function (index, item) {
+            con += "<li class='layui-nav-item'>" + "<a href=javascript:load_list(" + item.id + ")>" + item.title + "</a></li>"
+        });
+//        console.log(con);    //可以在控制台打印一下看看，这是拼起来的标签和数据
+        $("#menu_item").html(con); //把内容入到这个div中即完成
+    }
+    function load_list(val) {
+        //根据所点击按钮动态加载data中的界面
+        if (val == 5)
+            document.getElementById("bodyContent").innerHTML = '<object type ="text/html" data="user/list.html" width="100%" height="100%"></object>';
+        else
+            document.getElementById("bodyContent").innerHTML = '<object type ="text/html" data="user/error.html" width="100%" height="100%"></object>';
+    }
+</script>
+
+</html>

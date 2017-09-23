@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+               extends="org.lanqiao.rbac.entity.Account,
+                        org.lanqiao.rbac.entity.Menu,
+                        org.lanqiao.rbac.entity.Role,
+                        org.lanqiao.rbac.entity.UserRole,
+                        org.lanqiao.rbac.entity.RoleMenu,
+                        org.lanqiao.rbac.entity.UserProfile">
+        <result property="address.addrId" column="addr_id"/>
+        <result property="address.street" column="street"/>
+        <result property="address.city" column="city"/>
+        <result property="address.state" column="state"/>
+        <result property="address.zip" column="zip"/>
+        <result property="address.country" column="country"/>
+    </resultMap>
+    <resultMap id="BaseResultMap" type="org.lanqiao.rbac.entity.UserProfile">
+        &lt;!&ndash;
+          WARNING - @mbg.generated
+        &ndash;&gt;
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="gender" jdbcType="BIT" property="gender"/>
+    </resultMap>-->
+<mapper namespace="org.lanqiao.rbac.repository.AccountWithUserRoleMenuMapper">
+    <resultMap type="org.lanqiao.rbac.dto.AccountWithUserRoleMenu" id="BaseResultMap">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="account_id" jdbcType="INTEGER" property="accountId"/>
+        <result column="account_account" jdbcType="VARCHAR" property="accountAccount"/>
+        <!--userprofile.id AS `user_id`,-->
+        <result column="user_nickname" jdbcType="VARCHAR" property="userNickname"/>
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <!--role.id AS `role_id`,-->
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <!--role.`name` AS `role_name`,-->
+        <result column="menu_id" jdbcType="INTEGER" property="menuId"/>
+        <!--menu.id AS `menu_id`,-->
+        <result column="title" jdbcType="VARCHAR" property="menuTitle"/>
+        <!--menu.title AS `title`,-->
+        <result column="pid" jdbcType="INTEGER" property="menuPid"/>
+        <!--menu.pid AS `pid`-->
+    </resultMap>
+    <!--<resultMap id="UserResultMap" type="org.lanqiao.rbac.entity.UserProfile">-->
+        <!--&lt;!&ndash;-->
+          <!--WARNING - @mbg.generated-->
+        <!--&ndash;&gt;-->
+        <!--<id column="id" jdbcType="INTEGER" property="id"/>-->
+        <!--<result column="nick_name" jdbcType="VARCHAR" property="nickName"/>-->
+        <!--<result column="real_name" jdbcType="VARCHAR" property="realName"/>-->
+        <!--<result column="gender" jdbcType="BIT" property="gender"/>-->
+    <!--</resultMap>-->
+
+    <!--<resultMap id="RoleResultMap" type="org.lanqiao.rbac.entity.Role">-->
+        <!--&lt;!&ndash;-->
+          <!--WARNING - @mbg.generated-->
+        <!--&ndash;&gt;-->
+        <!--<id column="id" jdbcType="INTEGER" property="id"/>-->
+        <!--<result column="name" jdbcType="VARCHAR" property="name"/>-->
+        <!--<result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>-->
+        <!--<result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>-->
+        <!--<result column="description" jdbcType="VARCHAR" property="description"/>-->
+    <!--</resultMap>-->
+
+    <!--<resultMap id="RoleMenuResultMap" type="org.lanqiao.rbac.entity.RoleMenu">-->
+        <!--&lt;!&ndash;-->
+          <!--WARNING - @mbg.generated-->
+        <!--&ndash;&gt;-->
+        <!--<id column="id" jdbcType="INTEGER" property="id"/>-->
+        <!--<result column="role_id" jdbcType="INTEGER" property="roleId"/>-->
+        <!--<result column="menu_id" jdbcType="INTEGER" property="menuId"/>-->
+        <!--<result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>-->
+        <!--<result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>-->
+    <!--</resultMap>-->
+
+    <!--<resultMap id="MenuResultMap" type="org.lanqiao.rbac.entity.Menu">-->
+        <!--&lt;!&ndash;-->
+          <!--WARNING - @mbg.generated-->
+        <!--&ndash;&gt;-->
+        <!--<id column="id" jdbcType="INTEGER" property="id"/>-->
+        <!--<result column="title" jdbcType="VARCHAR" property="title"/>-->
+        <!--<result column="pid" jdbcType="INTEGER" property="pid"/>-->
+        <!--<result column="url" jdbcType="VARCHAR" property="url"/>-->
+        <!--<result column="state" jdbcType="BIT" property="state"/>-->
+        <!--<result column="is_button" jdbcType="BIT" property="isButton"/>-->
+        <!--<result column="description" jdbcType="VARCHAR" property="description"/>-->
+        <!--<result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>-->
+        <!--<result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>-->
+    <!--</resultMap>-->
+
+    <!--<resultMap id="AccountResultMap" type="org.lanqiao.rbac.entity.Account">-->
+        <!--&lt;!&ndash;-->
+          <!--WARNING - @mbg.generated-->
+        <!--&ndash;&gt;-->
+        <!--<id column="id" jdbcType="INTEGER" property="id"/>-->
+        <!--<result column="user_profile_id" jdbcType="INTEGER" property="userProfileId"/>-->
+        <!--<result column="account" jdbcType="VARCHAR" property="account"/>-->
+        <!--<result column="password" jdbcType="VARCHAR" property="password"/>-->
+        <!--<result column="type" jdbcType="SMALLINT" property="type"/>-->
+        <!--<result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>-->
+        <!--<result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>-->
+        <!--<result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>-->
+        <!--<result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>-->
+    <!--</resultMap>-->
+
+    <!--<resultMap id="UserRoleResultMap" type="org.lanqiao.rbac.entity.UserRole">-->
+        <!--&lt;!&ndash;-->
+          <!--WARNING - @mbg.generated-->
+        <!--&ndash;&gt;-->
+        <!--<id column="id" jdbcType="INTEGER" property="id"/>-->
+        <!--<result column="user_id" jdbcType="INTEGER" property="userId"/>-->
+        <!--<result column="role_id" jdbcType="INTEGER" property="roleId"/>-->
+    <!--</resultMap>-->
+    <!--<select id="selectPermissionsById" parameterType="int" resultType="string">-->
+    <select id="selectAllByAid" resultMap="BaseResultMap" parameterType="int">
+        SELECT
+        account.id AS `account_id`,
+        account.account AS `account_account`,
+        userprofile.id AS `user_id`,
+        userprofile.nick_name AS `user_nickname`,
+        role.id AS `role_id`,
+        role.`name` AS `role_name`,
+        menu.id AS `menu_id`,
+        menu.title AS `title`,
+        menu.pid AS `pid`
+        FROM
+        rbac_user_profile AS `userprofile`
+        LEFT JOIN rbac_user_role AS userRole ON userprofile.id = userRole.user_id
+        LEFT JOIN rbac_role AS role ON role.id = userRole.role_id
+        LEFT JOIN rbac_role_menu AS roleMenu ON role.id = roleMenu.role_id
+        LEFT JOIN rbac_menu AS menu ON roleMenu.id = menu.id
+        LEFT JOIN rbac_account AS account ON account.user_profile_id = userprofile.id
+        WHERE
+        user_id = #{uid}
+        --         GROUP BY
+        --         role_id,
+        --         menu_id;
+    </select>
+</mapper>

@@ -50,4 +50,10 @@ public class MenuAPI {
     public Result list(@PathVariable("pid") Integer pid){
         return ResultGenerator.genSuccessResult(menuService.findByPid(pid));
     }
+
+    @GetMapping("/a/{aid}") // /rbac/menu/1
+    public  Result showlist(@PathVariable("aid") Integer aid){
+        return ResultGenerator.genSuccessResult(menuService.findByAid(aid));
+    }
+
 }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <script src="../../layer.js"></script>
+    <script src="../../layui.js"></script>
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="../../css/layui.css">
+</head>
+<body>
+
+
+<form id="updateUser">
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="gender" value="true" title="男" checked="">
+            <input type="radio" name="gender" value="false" title="女">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">昵称</label>
+        <div class="layui-input-inline">
+            <input type="text" id="nickName" name="nickName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" id="realName" name="realName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="demo1">保存修改</button>
+            <button type="reset" class="layui-btn layui-btn-primary" >重置</button>
+            <button type="button" id="show" class="layui-btn" >测试</button>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    function init() {
+        document.getElementById("nickName").setAttribute("placeholder",parent.layer.info);
+
+    }
+//    init();
+
+//    function show() {
+//
+//        layer.alert(JSON.stringify(parent.layer.info())+"OK");
+//    }
+
+    $('#show').on('click', function(){
+//        parent.layer.msg('Hi, man', {shade: 0.3})
+//        layer.alert(JSON.stringify(parent.layer.info())+"OK");
+//        parent.layer.info;
+          parent.layer.alert("afafafafa");
+    });
+
+</script>
+</body>
+</html>
